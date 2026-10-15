@@ -1,0 +1,68 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+# Pages deployments need these; nothing else is granted.
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# One deployment at a time; let a running one finish.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out
+        uses: actions/checkout@v7
+
+      - name: Set up Pages
+        id: pages
+        uses: actions/configure-pages@v6
+
+      - name: Check every local file the page uses exists
+        run: |
+          python3 - <<'PY'
+          import os, re, sys
+          html = open("index.html", encoding="utf-8").read()
+          css = open("css/style.css", encoding="utf-8").read()
+          refs = set(re.findall(r'(?:src|href)="((?:css|js|img|fonts)/[^"?#]+)"', html))
+          for srcset in re.findall(r'srcset="([^"]+)"', html):
+              refs.update(part.strip().split(" ")[0] for part in srcset.split(","))
+          refs.update(os.path.normpath(os.path.join("css", u)) for u in re.findall(r'url\("?(\.\./[^")]+)"?\)', css))
+          missing = sorted(r for r in refs if not os.path.isfile(r))
+          print(f"{len(refs)} local files referenced")
+          if missing:
+              print("Missing:", *missing, sep="\n  ")
+              sys.exit(1)
+          PY
+
+      - name: Assemble the site
+        run: |
+          mkdir -p _site
+          cp -r index.html css js img fonts _site/
+          # Link previews need an absolute URL for the share image.
+          sed -i 's|content="img/og-card.jpg"|content="${{ steps.pages.outputs.base_url }}/img/og-card.jpg"|' _site/index.html
+
+      - name: Upload the site
+        uses: actions/upload-pages-artifact@v5
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@v5
