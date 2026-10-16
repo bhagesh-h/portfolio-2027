@@ -463,7 +463,24 @@ body { padding-bottom: calc(76px + env(safe-area-inset-bottom, 0px)); }
   .text-link:hover { background-size: 100% 2px; }
   .text-link:hover .icon { transform: translate(2px, -2px); }
 }
-.more { margin-top: 1rem; }
+/* "Find more projects here" with the GitHub tile beside it. */
+.more {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 20px;
+  margin-top: 1.25rem;
+}
+.more-text { font-size: var(--step-1); font-weight: 600; letter-spacing: -0.01em; }
+.more .elsewhere li { flex: 0 0 auto; }
+/* Phones: keep the GitHub tile on the same line as the text. */
+@media (max-width: 480px) {
+  .more { gap: 10px; }
+  .more-text { font-size: 0.9375rem; }
+  .more .elsewhere a { min-height: 48px; padding: 8px 10px; column-gap: 8px; }
+  .more .elsewhere .brand { width: 26px; height: 26px; }
+  .more .ew-handle { font-size: 0.75rem; }
+}
 
 /* ---------- Work ----------------------------------------------------------
    Only the hex logos. Opening one (hover, tap or keyboard) extends its orange

@@ -127,7 +127,7 @@
 
   if (layer && window.Uint8Array && window.Map) {
     var BASES = ['A', 'T', 'G', 'C'];
-    var TEXT = '.hero-name, .hero-role, .hero-lede, .section-head h2, .section-lede, .site-footer p';
+    var TEXT = '.hero-name, .hero-role, .hero-lede, .section-head h2, .section-lede, .more-text, .site-footer p';
     var BOXES = '.btn, .text-link, .tool-hex, .elsewhere a';
     // The header (sticky) and the phone menu (fixed) move with the screen, so they
     // are checked live in screen coordinates instead of in the page map.
