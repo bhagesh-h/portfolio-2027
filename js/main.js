@@ -73,6 +73,14 @@
   window.addEventListener('resize', onScroll);
   onScroll();
 
+  /* ---------- Portrait: no context menu or dragging over the photo ----------- */
+  var portraitBox = document.querySelector('.portrait');
+  if (portraitBox) {
+    ['contextmenu', 'dragstart'].forEach(function (type) {
+      portraitBox.addEventListener(type, function (e) { e.preventDefault(); });
+    });
+  }
+
   /* ---------- Tool logos ------------------------------------------------------
      On wide screens with a mouse, hover opens a logo (CSS). Everywhere else a
      tap or click on the logo toggles it, closing the others; on phones the

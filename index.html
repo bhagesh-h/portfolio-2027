@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Bhagesh Hunakunti</title>
   <meta name="description" content="Bhagesh Hunakunti, bioinformatician and software engineer. Tools for flow cytometry, aging clocks and keeping up with the literature, plus a statistics course in Python and R.">
+  <meta name="robots" content="noimageindex">
   <meta name="color-scheme" content="light dark">
   <meta name="theme-color" content="#F2F4F7" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#0E1014" media="(prefers-color-scheme: dark)">
@@ -116,16 +117,18 @@
         </svg>
         <picture>
           <source type="image/avif"
-                  srcset="img/portrait-v4-360.avif 360w, img/portrait-v4-560.avif 560w, img/portrait-v4-760.avif 760w, img/portrait-v4-874.avif 874w"
+                  srcset="img/portrait-v5-360.avif 360w, img/portrait-v5-560.avif 560w, img/portrait-v5-735.avif 735w"
                   sizes="(min-width: 860px) 416px, (min-width: 480px) 288px, 64vw">
           <img class="portrait-img"
-               src="img/portrait-v4-560.webp"
-               srcset="img/portrait-v4-360.webp 360w, img/portrait-v4-560.webp 560w, img/portrait-v4-760.webp 760w, img/portrait-v4-874.webp 874w"
+               src="img/portrait-v5-560.webp"
+               srcset="img/portrait-v5-360.webp 360w, img/portrait-v5-560.webp 560w, img/portrait-v5-735.webp 735w"
                sizes="(min-width: 860px) 416px, (min-width: 480px) 288px, 64vw"
-               width="874" height="1136"
+               width="735" height="956"
                alt="Bhagesh smiling in a sunlit garden with one arm around a white alpaca"
-               fetchpriority="high" decoding="async">
+               fetchpriority="high" decoding="async" draggable="false">
         </picture>
+        <!-- Sits over the photo so right-click / long-press never reach the image itself. -->
+        <span class="portrait-shield" aria-hidden="true"></span>
       </div>
     </section>
 
